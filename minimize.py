@@ -2,6 +2,7 @@
 
 import math
 from tkinter import *
+from rand_cof_M import generate_random_matrix
 
 #######Matrix_read#######
 def read_Mp(str, k, l):
@@ -22,7 +23,7 @@ def read_Mp(str, k, l):
         i = 0
         i_temp1 = 0
         i_temp2 = 0
-        while line[i]  != '\n':
+        while line[i] != '\n':
             if (line[i] == ' ') or (line[i + 1] == '\n'):
                 if i_temp2 == 0:
                     i_temp1 = i_temp2
@@ -160,83 +161,22 @@ def dif_stop(M, c, e):
             break
     return min_f
 
+
 if __name__ == "__main__":
-    file_in = open('input', 'r')
-    #id of x for ex: x1,x2,x3#
-    idx = 0
     #k and l - matrix metric k*l#
-    k = 0
-    l = 0
+    k = 10
+    l = 10
+
+    generate_random_matrix(k, l)
+
     #cof of Sum and cof between a and b#
-    cof_s1 = 0
-    cof_s2 = 0
+    cof_s1 = 4
+    cof_s2 = 5
 
-    cof_p1 = 0
-    cof_p2 = 0
+    cof_p1 = 4
+    cof_p2 = 6
 
-    cl = 0
-    i_temp1 = 0
-    i_temp2 = 0
-    qx = []
-    c_splite = 0
-
-    for line in file_in:
-        cl += 1
-        i = 0
-        if cl == 1:
-            while line[i] != '\n':
-                if line[i] == '#':
-                    i_temp1 = i + 1
-                if (i_temp1 != 0) and ('\n' == line[i + 1]):
-                    idx = int(line[i_temp1:(i + 1)])
-                i += 1
-        if 2 == cl:
-            while '\n' != line[i]:
-                if 'S' == line[i]:
-                    if cof_s1 == 0:
-                        if line[i - 2] == '-':
-                            cof_s1 = (-1)
-                        else:
-                            cof_s1 = 1
-                    elif l != 0:
-                        if line[i - 2] == '-':
-                            cof_s2 = (-1)
-                        else:
-                            cof_s2 = 1
-                    i_temp1 = (i + 5)
-                    for t in [1, 2]:
-                        if line[i + t + 5] == ')':
-                            i_temp2 = (i + t + 5)
-                            break
-                    if 0 == k:
-                        k = int(line[i_temp1:i_temp2])
-                    elif 0 == l:
-                        l = int(line[i_temp1:i_temp2])
-                if line[i] == 'B':
-                    if '-' == line[i - 1]:
-                        cof_p1 = (-1)
-                    else:
-                        cof_p1 = 1
-                elif 'D' == line[i]:
-                    if '-' == line[i - 1]:
-                        cof_p2 = (-1)
-                    else:
-                        cof_p2 = 1
-                i += 1
-        if cl >= 3:
-            c_splite = 0
-            qx.append([])
-            while line[i] != '\n':
-                if line[i] == '<':
-                    c_splite += 1
-                    if c_splite == 1:
-                        qx[(cl - 3)].append(float(line[0:i]))
-                    else:
-                        qx[(cl - 3)].append(float(line[i + 1:-1]))
-                i += 1
-    print(idx)
-    print(qx)
-    file_in.close()
+    qx = [[1, 2], [3, 4], [6, 5]]
 
     ####### Reduct_min #######
 
@@ -322,8 +262,6 @@ if __name__ == "__main__":
     canv.create_line(50, 600, 50, 100, width=2, arrow=LAST)
     canv.create_line(50, 600, 550, 600, width=2, arrow=LAST)
 
-    print(q)
-
     for i in range(501):
         for j in range(501):
             x = x0 + j
@@ -333,7 +271,8 @@ if __name__ == "__main__":
                 if (fy * 10.0) <= 5.2:
                     canv.create_oval(x, y, x + 1, y + 1, fill='blue')
     print(((q * y_min[1]) + 48), (-q * (y_min[2]) + 602), (q * (y_min[1]) + 52), (-q * (y_min[2]) + 598))
-    canv.create_rectangle(((q * y_min[1]) + 48), (-q * (y_min[2]) + 602), (q * (y_min[1]) + 52), (-q * (y_min[2]) + 598),
+    canv.create_rectangle(((q * y_min[1]) + 48), (-q * (y_min[2]) + 602), (q * (y_min[1]) + 52),
+                          (-q * (y_min[2]) + 598),
                           fill='black')
     canv.pack()
     root.mainloop()
